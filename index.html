@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>PeaceHealth.IA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>PeaceHealth.IA</h1>
+        <p class="slogan">Sua escuta emocional com inteligência</p>
+    </header>
+
+    <main>
+        <section class="apresentacao">
+            <h2>Bem-vindo ao seu espaço de paz mental</h2>
+            <p>
+                Aqui você encontra uma escuta imediata, empática e sem julgamentos.
+                Nossa Inteligência Artificial foi treinada para atuar como apoio emocional emergencial,
+                ajudando você a organizar sentimentos, buscar respostas e encontrar calma, mesmo nos momentos mais difíceis.
+            </p>
+            <p>
+                Sem login, sem burocracia. Apenas você e a IA, de forma privada e respeitosa.
+            </p><a href="ia.html" class="btn">
+  💬 Vamos conversar
+</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 PeaceHealth.IA – Sua paz começa aqui</p>
+    </footer>
+
+
+<!-- Botão flutuante -->
+<div class="chat-trigger" onclick="abrirChat()">
+  💬
+</div>
+
+
+
+<!-- Chat flutuante -->
+<div class="chat-popup" id="chatPopup">
+  <h3>Converse com você mesmo</h3>
+  <form>
+    <label>🧠 O que está te incomodando agora?</label>
+    <textarea required></textarea>
+
+    <label>💭 Qual pensamento mais insiste na sua mente hoje?</label>
+    <textarea required></textarea>
+
+    <label>🕊️ Há algo que você gostaria de ouvir agora?</label>
+    <input type="text" required>
+
+    <label>🌱 Lembra de algo que te fez sorrir recentemente?</label>
+    <input type="text" required>
+
+    <button type="submit" class="btn-form">Enviar</button>
+    <button type="button" onclick="fecharChat()" class="btn-close">Fechar</button>
+  </form>
+</div> 
+
+<script>
+  function abrirChat() {
+    document.getElementById('chatPopup').style.display = 'block';
+  }
+
+  function fecharChat() {
+    document.getElementById('chatPopup').style.display = 'none';
+  }
+</script></body>
+</html>
