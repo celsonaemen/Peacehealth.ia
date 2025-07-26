@@ -22,9 +22,8 @@
             </p>
             <p>
                 Sem login, sem burocracia. Apenas você e a IA, de forma privada e respeitosa.
-            </p><a href="ia.html" class="btn">
-  💬 Vamos conversar
-</a>
+            </p>
+            <a href="chat.html" class="btn">💬 Vamos conversar</a>
         </section>
     </main>
 
@@ -32,42 +31,86 @@
         <p>&copy; 2025 PeaceHealth.IA – Sua paz começa aqui</p>
     </footer>
 
+    <!-- Botão flutuante -->
+    <div class="chat-trigger" onclick="abrirChat()">💬</div>
 
-<!-- Botão flutuante -->
-<div class="chat-trigger" onclick="abrirChat()">
-  💬
-</div>
+    <!-- Chat flutuante -->
+    <div class="chat-popup" id="chatPopup">
+      <div class="chat-header">
+        Converse com você mesmo
+        <button class="btn-close" onclick="fecharChat()">×</button>
+      </div>
+      <form id="formReflexao">
+        <label>🧠 O que está te incomodando agora?</label>
+        <textarea required></textarea>
 
+        <label>💭 Qual pensamento mais insiste na sua mente hoje?</label>
+        <textarea required></textarea>
 
+        <label>🕊️ Há algo que você gostaria de ouvir agora?</label>
+        <input type="text" required>
 
-<!-- Chat flutuante -->
-<div class="chat-popup" id="chatPopup">
-  <h3>Converse com você mesmo</h3>
-  <form>
-    <label>🧠 O que está te incomodando agora?</label>
-    <textarea required></textarea>
+        <label>🌱 Lembra de algo que te fez sorrir recentemente?</label>
+        <input type="text" required>
 
-    <label>💭 Qual pensamento mais insiste na sua mente hoje?</label>
-    <textarea required></textarea>
+        <button type="submit" class="btn-form">Enviar</button>
+      </form>
+    </div>
 
-    <label>🕊️ Há algo que você gostaria de ouvir agora?</label>
-    <input type="text" required>
+    <script>
+      function abrirChat() {
+        document.getElementById('chatPopup').style.display = 'flex';
+      }
 
-    <label>🌱 Lembra de algo que te fez sorrir recentemente?</label>
-    <input type="text" required>
+      function fecharChat() {
+        document.getElementById('chatPopup').style.display = 'none';
+      }
 
-    <button type="submit" class="btn-form">Enviar</button>
-    <button type="button" onclick="fecharChat()" class="btn-close">Fechar</button>
-  </form>
-</div> 
-
+      document.getElementById("formReflexao").addEventListener("submit", function(e) {
+        e.preventDefault();
+        alert("Obrigado por compartilhar. Respire fundo. 🌿");
+        fecharChat();
+      });
+    </script>
 <script>
-  function abrirChat() {
-    document.getElementById('chatPopup').style.display = 'block';
+  async function enviarMensagem(mensagem) {
+    const resposta = await fetch('https://api-inference.huggingface.co/models/microsoft/DialoGPT-medium', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer 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',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        inputs: mensagem
+      })
+    });
+
+    const data = await resposta.json();
+
+    if (data.generated_text) {
+      return data.generated_text;
+    } else if (data[0]?.generated_text) {
+      return data[0].generated_text;
+    } else {
+      return "Desculpe, não entendi. Pode repetir?";
+    }
   }
 
-  function fecharChat() {
-    document.getElementById('chatPopup').style.display = 'none';
-  }
-</script></body>
+  // Ao clicar no botão de envio do formulário (id="formulario")
+  document.getElementById("formulario").addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const mensagem = document.getElementById("mensagem").value.trim();
+    if (!mensagem) {
+      alert("Por favor, digite como está se sentindo.");
+      return;
+    }
+
+    const resposta = await enviarMensagem(mensagem);
+    alert("IA: " + resposta);
+  });
+</script>
+
+
+
+</body>
 </html>
